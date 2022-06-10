@@ -1,0 +1,66 @@
+{% extends "html/base.html"%}
+
+{% block titulo %}
+ver Archivos
+{% endblock %}
+
+{% block titulos %}
+<a class="navbar-brand" href="#"> MI ARCHIVO </a>
+{%endblock%}
+
+{% block boton %}
+<a href="{{ url_for('guardarimagen')}}" class="btn btn-outline-primary" role="button" aria-pressed="true">MIS ARCHIVO</a>
+         --
+<a href="{{ url_for('mostrar')}}" class="btn btn-outline-primary" role="button" aria-pressed="true">AÑADIR ARCHIVO</a>
+         --
+<a href="{{ url_for('cerrarsesion')}}" class="btn btn-outline-success" role="button" aria-pressed="true">SALIR</a>
+{%endblock%}
+
+{% block contenido%}
+
+    <div class="padre2">
+
+        <div class="Container">
+            <div class="row">
+                {% for archivo in archivos %}
+                <div class="col">
+                    <div class="card">
+                        <form action="{{url_for('eliminararchivo')}}" method="post">
+                        
+                        {% if archivo['extension'] == '.png' or archivo['extension'] == '.jpg' :%}
+                        <img src="{{archivo['img'] }}" style="width: 50%; ">
+                        {%else %}  
+                        <img src="{{archivo['exten'] }}" style="width: 50%; ">
+                        {%endif %}    
+
+                        
+
+                        <div class="card-body">
+                            <h5 class="card-title">Nombre: {{archivo['nombre'] }}</h5>
+                            <h5 class="card-title">Peso: {{archivo['peso'] }}</h5>
+                            <h5 class="card-title">Extension: {{archivo['extension'] }}</h5>
+                            <h5 class="card-title">Link: <input type="text" value="http://127.0.0.1:5000/ver/{{archivo['id']}}"></h5>
+                           
+
+                            <label for=""> </label>
+                            <input type="hidden" name="id" value="{{archivo['id']}}">
+                            <a href="{{url_for('descargar',id=(archivo['id']))}}" class="btn btn-outline-info ">Descargar</a> 
+                            <a href="{{url_for('editararchivo',id=(archivo['id']))}}" class="btn btn-outline-info ">Editar</a> 
+                            <a href="http://127.0.0.1:5000{{(archivo['img'])}}" class="btn btn-outline-info " target="_blank_">VER </a> 
+                           
+                          
+        
+                        </div>
+
+                        </form>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock%}

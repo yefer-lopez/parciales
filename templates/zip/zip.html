@@ -1,0 +1,72 @@
+{% extends "html/base.html"%}
+
+{% block titulo %}
+comprimir
+{% endblock %}
+
+{% block titulos %}
+<a class="navbar-brand" href="#"> COMPRIMIR ARCHIVOS </a>
+{%endblock%}
+
+{% block boton %}
+<a href="{{ url_for('login')}}" class="btn btn-outline-primary" role="button" aria-pressed="true">LOGIN</a>
+--
+<a href="{{ url_for('acortar')}}" class="btn btn-outline-info" role="button" aria-pressed="true">ACORTADOR</a>
+--
+<a href="{{ url_for('crearUsuario')}}" class="btn btn-outline-success" role="button" aria-pressed="true">REGISTRAR</a>
+--
+<a href="{{ url_for('descomprimi')}}" class="btn btn-outline-danger" role="button" aria-pressed="true">DESCOMPRIMIR</a>
+{%endblock%}
+
+{% block contenido%}
+
+<center>
+
+    <div class="padre2">
+        <h1>COMPRIMIR ARCHIVOS</h1>
+
+        <form action="{{url_for('comprimipost')}}" method="post" enctype="multipart/form-data" method="POST">
+
+            <div>
+                <label for="">Nombre del zip: </label><br>
+                <input type="text" name="nombre" value="">
+            </div><br>
+            <div>
+                <input type="file" class="btn btn-outline-info" id="archivo[]" name="archivo[]" multiple>
+            </div><br>
+            <center>
+                <button type="submit" class="btn btn-outline-danger">Comprimir</button>
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+
+                {% for category , messages in messages %}
+                <br>
+                <ul class="alert alert-{{category}} align-items-center d">
+
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                        <use xlink:href="#check-circle-fill" />
+                    </svg>
+                    <div class="row fw-bolder">
+                        {% if messages == 'Debes seleccionar algun documento' %}
+                            <p>{{messages}}</p>
+                        {% else: %}
+                        <center>
+                            <img src="{{messages}}" style="width: 30%; ">
+                            <a href="{{ url_for('zipdes')}}">DESCARGAR</a>
+                        </center>
+                        {% endif %}
+                    </div>
+
+                </ul>
+                {% endfor %}
+
+                {% endif %}
+                {% endwith %}
+            </center>
+        </form>
+
+    </div>
+
+</center>
+
+{% endblock%}

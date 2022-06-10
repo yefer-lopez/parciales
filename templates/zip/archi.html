@@ -1,0 +1,48 @@
+{% extends "html/base.html"%}
+
+{% block titulo %}
+descomprimidos 
+{% endblock %}
+
+{% block titulos %}
+<a class="navbar-brand" href="#"> ARCHIVOS DESCOMPRIMIDOS </a>
+{%endblock%}
+
+{% block boton %}
+
+<a href="{{ url_for('descomprimi')}}" class="btn btn-outline-danger" role="button" aria-pressed="true">VOLVER</a>
+{%endblock%}
+
+{% block contenido%}
+
+    <div class="padre2">
+       
+        <div class="Container">
+            <div class="row">
+              
+                {% for archivo in archivos %}
+                
+                <div class="col">
+                    <div class="card">
+                      
+                        {% if archivo[3] == '.png' or archivo[3] == '.jpg' :%}
+                        <img src="{{archivo[5] }}" style="width: 50%; ">
+                        {%else %}  
+                        <img src="{{archivo[4] }}" style="width: 50%; ">
+                        {%endif %} 
+
+                        
+                        <div class="card-body">
+                            <a href="{{url_for('zipdesc',ruta=archivo[1])}}" class="btn btn-outline-info ">DESCARGAR</a>
+                        </div>
+ 
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock%}

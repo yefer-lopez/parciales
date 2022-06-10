@@ -1,0 +1,64 @@
+{% extends "html/base.html"%}
+
+{% block titulo %}
+    LOGIN
+{% endblock %}
+{% block titulos %}
+<a class="navbar-brand" href="#">INGRESAR</a>
+{%endblock%}
+
+{% block boton %}
+<a href="{{ url_for('acortar')}}" class="btn btn-outline-primary" role="button" aria-pressed="true">ACORTADOR</a>
+        --   
+<a href="{{ url_for('comprimi')}}" class="btn btn-outline-info" role="button" aria-pressed="true">COMPRIMIR</a>
+         --
+<a href="{{ url_for('crearUsuario')}}" class="btn btn-outline-success" role="button" aria-pressed="true">REGISTRAR </a>
+--
+<a href="{{ url_for('descomprimi')}}" class="btn btn-outline-danger" role="button" aria-pressed="true">DESCOMPRIMIR</a>
+
+{%endblock%}
+
+
+{% block contenido%}
+
+<center>
+<div class="padre2">
+    <h1>INGRESAR</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="alert alert-danger">
+            {% for messages in messages %}
+                <li>{{messages}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    
+    <form action="{{url_for('ingresar')}}" method="post">
+
+        <div class="form-group">
+            <label for="">Email</label>
+            <input type="email" name="email" value="{{email}}" class="form-control" placeholder="ejemplo@gmail.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" name="password" value="{{password}}" class="form-control btn-outline-dark" placeholder="Password" required>
+        </div>
+        
+        <br>
+        <div>
+            <center>
+                Recuperar contraseña con correo:  <a href="{{ url_for('recuperarcontra')}}" >Recuperar</a>
+            </center>
+        </div>
+        <div class="botones"><br>
+        <button type="submit" class="btn btn-outline-danger">INGRESAR</button>
+
+    </div>      
+    </form>
+
+</div>
+</center>
+{% endblock%}

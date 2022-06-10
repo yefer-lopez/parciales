@@ -1,0 +1,53 @@
+{% extends "html/base.html"%}
+
+{% block titulo %}
+Archivos
+{% endblock %}
+
+{% block titulos %}
+<a class="navbar-brand" href="#">MIS ARCHIVOS</a>
+{%endblock%}
+
+{% block boton %}
+<a href="{{ url_for('mostrar')}}" class="btn btn-outline-primary" role="button" aria-pressed="true">AÑADIR ARCHIVO</a>
+         --
+<a href="{{ url_for('cerrarsesion')}}" class="btn btn-outline-success" role="button" aria-pressed="true">SALIR</a>
+{%endblock%}
+
+{% block contenido%}
+
+    <div class="padre2">
+
+        <div class="Container">
+            <div class="row">
+                {% for archivo in archivos %}
+                <div class="col">
+                    <div class="card">
+                        <form action="{{url_for('eliminararchivo')}}" method="post">
+
+                        {% if archivo['img']: %}
+                        <img src="{{archivo['exten'] }}" style="width: 50%; ">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{archivo['nombre'] }}</h5>
+                            <label for=""> </label>
+                            <input type="hidden" name="id" value="{{archivo['id']}}">
+                            <a href="{{url_for('verarchivos',id=(archivo['id']))}}" class="btn btn-outline-info ">Detalles</a>
+                            
+                            <button type="submit" class="btn btn-outline-danger">DELET</button>
+        
+                        </div>
+
+                        </form>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock%}
